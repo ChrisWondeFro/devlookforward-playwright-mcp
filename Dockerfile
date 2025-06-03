@@ -25,7 +25,7 @@ COPY package.json package-lock.json ./
 RUN npm ci
 
 # Copy the rest of the app
-COPY *.json *.js *.ts .
+COPY *.json *.js *.ts ./
 COPY src src/
 
 # Build the app
