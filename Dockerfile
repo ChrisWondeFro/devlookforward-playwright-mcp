@@ -60,4 +60,7 @@ COPY --chown=${USERNAME}:${USERNAME} cli.js package.json ./
 COPY --from=builder --chown=${USERNAME}:${USERNAME} /app/lib /app/lib
 
 # Run in headless and only with chromium (other browsers need more dependencies not included in this image)
-ENTRYPOINT ["node", "cli.js", "--headless", "--browser", "chromium", "--no-sandbox"]
+# Add PORT env variable and set default to 8080
+ENV PORT=8080
+# Use the PORT environment variable and bind to all interfaces for Cloud Run
+ENTRYPOINT ["node", "cli.js", "--headless", "--browser", "chromium", "--no-sandbox", "--port", "${PORT}", "--host", "0.0.0.0"]
